@@ -1,0 +1,41 @@
+.form,
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form input[type="text"],
+.form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  color: var(--white);
+  border: 0.3rem solid var(--white);
+  padding: 1rem;
+  font-size: 1.8rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+/* Opciones del select */
+.form select option {
+  background-color: rgba(0, 0, 0, 0.466);
+  color: var(--white);
+}
+
+.field ::placeholder {
+  color: var(--white);
+}
+
+.submit {
+  background-color: var(--primary);
+  border: none;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 1rem;
+}
