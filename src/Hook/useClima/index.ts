@@ -5,7 +5,6 @@ import { z } from 'zod'
 
 import { buscartype } from '@/types'
 
-//Valibot
 const Weather = z.object({
   name: z.string(),
   main: z.object({
@@ -16,26 +15,37 @@ const Weather = z.object({
 })
 export type Weather = z.infer<typeof Weather>
 
+const initalState = {
+  name: '',
+  main: {
+    temp: 0,
+    temp_max: 0,
+    temp_min: 0
+  }
+}
 
 function FetchClima() {
 
-  const [clima, setClima] = useState<Weather>({
-    name: '',
-    main: {
-      temp: 0,
-      temp_max: 0,
-      temp_min: 0
-    }
-  })
+  const [clima, setClima] = useState<Weather>(initalState)
+  const [loading, setLoading] = useState(false)
+  const [notFound, setNotFound] = useState(false)
 
   const fetchClima = async (buscador: buscartype) => {
     const apiKey = import.meta.env.VITE_API_KEY
-
+    setLoading(true)
+    setNotFound(false)
+    setClima(initalState)
     try {
       const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${buscador.city},${buscador.country}&appid=${apiKey}`
 
       const { data } = await axios.get(geoUrl)
 
+
+      //validacion de datos
+      if (!data[0]) {
+        setNotFound(true)
+        return
+      }
       const lat = data[0].lat
       const lon = data[0].lon
 
@@ -48,17 +58,21 @@ function FetchClima() {
       }
     } catch (error) {
       console.log(error)
-      }
-    }
-
-    const climaMemo = useMemo(() => clima, [clima])
-  
-    return {
-      clima,
-      fetchClima,
-      climaMemo
+    } finally {
+      setLoading(false)
     }
   }
 
+  const climaMemo = useMemo(() => clima, [clima])
 
-  export default FetchClima 
+  return {
+    clima,
+    notFound,
+    fetchClima,
+    climaMemo,
+    loading
+  }
+}
+
+
+export default FetchClima 

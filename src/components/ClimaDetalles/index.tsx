@@ -1,5 +1,5 @@
-import { Weather } from "@/Hook/useClima"
-import { formatoTemp } from "@/utils"
+import { Weather } from '@/Hook/useClima'
+import { formatoTemp } from '@/utils'
 import styles from '@/components/ClimaDetalles/ClimaDetalles.module.css'
 
 type WeatherDetailProps = {

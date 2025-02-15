@@ -7,7 +7,7 @@ import type { buscartype } from '@/types'
 import styles from '@/components/Form/Form.module.css'
 
 interface FormProps {
-  fetchClima: (buscador: buscartype) => Promise<void>;
+  fetchClima: (buscador: buscartype) => Promise<void>
 }
 
 const Form: React.FC<FormProps> = ({ fetchClima }) => {
@@ -42,7 +42,7 @@ const Form: React.FC<FormProps> = ({ fetchClima }) => {
     >
 
       <div className={styles.field}>
-        <label htmlFor="city">Ciudad:</label>
+        <label htmlFor='city'>Ciudad:</label>
         <input
           id='city'
           name='city'
@@ -54,13 +54,13 @@ const Form: React.FC<FormProps> = ({ fetchClima }) => {
       </div>
 
       <div className={styles.field}>
-        <label htmlFor="country">País:</label>
+        <label htmlFor='country'>País:</label>
         <select
-          id="country"
-          name="country"
+          id='country'
+          name='country'
           value={buscador.country}
           onChange={handleChange}>
-          <option value="">
+          <option value=''>
             -- Seleccione un País --
           </option>
           {countries.map((country) => (
@@ -69,7 +69,7 @@ const Form: React.FC<FormProps> = ({ fetchClima }) => {
         </select>
 
       </div>
-      <input className={styles.submit} type="submit" value='Consultar Clima' />
+      <input className={styles.submit} type='submit' value='Consultar Clima' />
     </form>
   )
 }

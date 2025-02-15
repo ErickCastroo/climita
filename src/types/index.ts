@@ -4,8 +4,8 @@ export type buscartype = {
 }
 
 export type contryType = {
-  code: string;
-  name: string;
+  code: string
+  name: string
 }
 
 export type Weather = {
