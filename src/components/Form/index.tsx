@@ -1,16 +1,17 @@
 import { useState } from 'react'
-import { toast } from 'sonner'  
-
-import { useClima } from '@/Hook/useClima'
+import { toast } from 'sonner'
 
 import { countries } from '@/data'
 import type { buscartype } from '@/types'
 
 import styles from '@/components/Form/Form.module.css'
 
-function Form() {
+interface FormProps {
+  fetchClima: (buscador: buscartype) => Promise<void>;
+}
 
-  const { fetchClima } = useClima()
+const Form: React.FC<FormProps> = ({ fetchClima }) => {
+
 
   const [buscador, setBuscador] = useState<buscartype>({
     city: '',
@@ -31,13 +32,14 @@ function Form() {
       console.log('Hay campos vacios')
       return
     }
-  } 
+    fetchClima(buscador)
+  }
 
   return (
     <form
       className={styles.form}
       onSubmit={handleSubmit}
-      >
+    >
 
       <div className={styles.field}>
         <label htmlFor="city">Ciudad:</label>
@@ -54,9 +56,9 @@ function Form() {
       <div className={styles.field}>
         <label htmlFor="country">País:</label>
         <select
-          id="country" 
-          name="country" 
-          value={buscador.country} 
+          id="country"
+          name="country"
+          value={buscador.country}
           onChange={handleChange}>
           <option value="">
             -- Seleccione un País --
